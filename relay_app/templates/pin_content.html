@@ -1,0 +1,63 @@
+
+      <div class="relay">
+        <a name="relay"></a>
+        {% for pin in pin_data %}
+
+          <div class="row">
+                <div class="col1">{{ forloop.counter }}</div>
+                <div class="col2">{{ pin.name }}</div>
+                <div class="col3">
+                  <form method="post">
+                  {% if pin.state %}
+                      <input class="disable" type="submit" value="">
+                      <input type="hidden" value="0" name="state">
+                  {% else %}
+                      <input class="enable" type="submit" value="">
+                      <input type="hidden" value="1" name="state">
+                   {% endif %}
+                      <input type="hidden" value="{{ pin.id }}" name="pin_id">
+                  </form>
+                </div>
+            </div>
+
+        {% empty %}
+                  <p class="settings">{{ no_switches }}</p>
+        {% endfor %}
+      </div>
+
+
+      {% if schedule_data %}
+        <div class="timer">
+        <a name="timer"></a>
+        <h4>{{ schedule_tasks_title }}:</h4>
+        {% for sched in schedule_data %}
+
+          <div class="row">
+              <div class="col1">{{ forloop.counter }}</div>
+              <div class="col2">
+                {{ sched.action_name | capfirst}}
+                {{ sched.pin_command | lower }}
+                {{ sched.cron_verbose | lower }}
+              </div>
+              <div class="col3">
+                <form method="post">
+                {% if sched.active %}
+                    <input class="disable" type="submit" value="">
+                    <input type="hidden" value="0" name="state">
+                {% else %}
+                    <input class="enable" type="submit" value="">
+                    <input type="hidden" value="1" name="state">
+                {% endif %}
+                <input type="hidden" value="{{ sched.id }}" name="schedule_id">
+                <input type="hidden" value="true" name="from_button">
+                </form>
+              </div>
+          </div>
+
+        {% endfor %}
+        </div>
+      {% endif %}
+
+      <script>
+        $('form').submit(relay_button_onclick);
+      </script>
