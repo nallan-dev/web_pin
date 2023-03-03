@@ -1,6 +1,6 @@
 from pathlib import Path
 
-import cron_descriptor
+from cron_descriptor import Options
 
 # ==========================================================================
 
@@ -57,7 +57,7 @@ BOARD_NUMS = [
 # ==========================================================================
 
 
-CRON_OPTIONS = cron_descriptor.Options()
+CRON_OPTIONS = Options()
 if "ru" in LANGUAGE_CODE:
     CRON_OPTIONS.locale_code = "ru_RU"
     CRON_OPTIONS.use_24hour_time_format = True
