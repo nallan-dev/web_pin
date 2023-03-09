@@ -39,7 +39,7 @@ class ScheduleDataAdmin(admin.ModelAdmin):
     class Media:
         js = ["cron_slug.js"]
 
-    @admin.display(description=t("Переключатель"))
+    @admin.display(description=t("Pin"))
     def pin_name(self, obj: ScheduleData) -> str:
         return obj.pin_data.command
 

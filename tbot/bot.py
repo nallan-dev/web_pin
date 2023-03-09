@@ -61,7 +61,7 @@ def message_handler(message: Message):
     keyboard_data = KeyboardData.get_from_app_data(APP_DATA)
     bot.send_message(
         message.chat.id,
-        t("Переключатели"),
+        t("Switchers"),
         reply_markup=keyboard_data.form_keyboard(),
     )
 

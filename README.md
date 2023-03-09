@@ -33,4 +33,9 @@ WebPin requires to run just python3.11 and some pip-libraries:
 pip install -r py_3_11_requirements.txt
 python run_app.py
 ```
+NOTE: If you set in settings USE_BOT=True then after run_app you see error messages in console like this:
+```
+A request to the Telegram API was unsuccessful. Error code: 401. Description: Unauthorized
+```
+Don't afraid, just set valid Telegram bot token in web_app admin panel, then restart.
 5) It's recommended to add "python manage.py cleanup_temp" command to system cron (e.g. once a day)

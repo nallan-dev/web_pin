@@ -45,8 +45,11 @@ class KeyboardData:
             )
 
         keyboard.add(
-            InlineKeyboardButton(text=t("Обновить"), callback_data="refresh")
+            InlineKeyboardButton(
+                text=t("Refresh state"), callback_data="refresh"
+            )
         )
+
         return keyboard
 
     def form_pushed_button_text(self, pk_name: str, pk: str) -> str:
@@ -107,9 +110,9 @@ class KeyboardData:
         for schedule_id, schedule_data in schedules_data.items():
             action_verbose = t(
                 {
-                    0: "Включать",
-                    1: "Выключать",
-                    2: "Переключать",
+                    0: "Switch on",
+                    1: "Switch off",
+                    2: "Switch",
                 }[schedule_data.action]
             )
             schedules_keyboard_data[schedule_id] = RowKeyboardData(

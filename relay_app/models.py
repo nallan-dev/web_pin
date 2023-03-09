@@ -29,45 +29,44 @@ class PinData(models.Model):
     objects = PinDataQuerySet.as_manager()
 
     order_id = models.PositiveIntegerField(
-        verbose_name=t("Порядковый номер"),
-        help_text=t("Для отображения в списке"),
+        verbose_name=t("Index number"),
+        help_text=t("For ordering in list"),
         unique=True,
     )
     board_num = models.PositiveIntegerField(
-        verbose_name=t("Номер пина (BOARD)"),
-        help_text=t("Нумерация GPIO BOARD"),
+        verbose_name=t("Pin num (BOARD)"),
+        help_text=t("GPIO BOARD numbering"),
         unique=True,
         choices=BOARD_CHOICES,
     )
     command = models.CharField(
         max_length=30,
         unique=True,
-        verbose_name=t("Назначение переключателя"),
-        help_text=t('Например "Свет на кухне"'),
+        verbose_name=t("Switch name"),
+        help_text=t('For example, "Light in the kitchen"'),
     )
     comment = models.TextField(
-        verbose_name=t("Комментарий"),
-        help_text=t("Необязательное поле"),
+        verbose_name=t("Comment"),
+        help_text=t("Optional field"),
         blank=True,
         null=True,
     )
     state = models.BooleanField(
         default=False,
-        verbose_name=t("Текущее состояние"),
-        help_text=t("Включен или выключен"),
+        verbose_name=t("Current state"),
+        help_text=t("On or off"),
     )
     invert_state = models.BooleanField(
         default=False,
-        verbose_name=t("Инвертировать состояние"),
+        verbose_name=t("Invert state"),
         help_text=t(
-            "Инвертировать состояние пинов на уровне GPIO "
-            '(т.е. "Включенный пин" = GPIO.LOW (gnd))'
+            'Invert state at GPIO-level (e.g. "Enabled pin" = GPIO.LOW (gnd))'
         ),
     )
     visible = models.BooleanField(
         default=True,
-        verbose_name=t("Активен"),
-        help_text=t("Отображать ли в интерфейсах?"),
+        verbose_name=t("Active"),
+        help_text=t("Display in interfaces?"),
     )
 
     def __str__(self):
@@ -105,47 +104,47 @@ class PinData(models.Model):
 
     class Meta:
         ordering = ["order_id"]
-        verbose_name = t("Настройка пина")
-        verbose_name_plural = t("Настройки пинов")
+        verbose_name = t("Pin config")
+        verbose_name_plural = t("Pin configs")
         db_table = "pin_data"
 
 
 class ScheduleData(models.Model):
     ACTION_CHOICES = [
-        (0, t("Выключать")),
-        (1, t("Включать")),
-        (2, t("Переключать")),
+        (0, t("Switch off")),
+        (1, t("Switch on")),
+        (2, t("Switch")),
     ]
     pin_data = models.ForeignKey(
         PinData,
         on_delete=models.CASCADE,
         related_name="schedules",
-        verbose_name=t("Переключатель"),
+        verbose_name=t("Pin"),
     )
     cron_time = models.CharField(
         max_length=100,
         default="* * * * *",
-        verbose_name=t("Время срабатывания"),
-        help_text=t("Нотация Cron"),
+        verbose_name=t("Trigger time"),
+        help_text=t("Cron notation"),
         validators=[validate_cron],
     )
     describe_cron = models.TextField(
         max_length=200,
-        default=t("Каждую минуту"),
-        verbose_name=t("Описание времени выполнения"),
+        default=t("Every minute"),
+        verbose_name=t("Time trigger description"),
     )
     action = models.PositiveSmallIntegerField(
         choices=ACTION_CHOICES,
-        verbose_name=t("Действие"),
-        help_text=t("Действие над переключателем"),
+        verbose_name=t("Action"),
+        help_text=t("Pin action"),
     )
     active = models.BooleanField(
         default=True,
-        verbose_name=t("Активно"),
-        help_text=t("Активна ли эта задача"),
+        verbose_name=t("Active"),
+        help_text=t("Is trigger active?"),
     )
     comment = models.CharField(
-        max_length=200, verbose_name=t("Комментарий"), blank=True, null=True
+        max_length=200, verbose_name=t("Comment"), blank=True, null=True
     )
 
     def __str__(self):
@@ -170,8 +169,8 @@ class ScheduleData(models.Model):
 
     class Meta:
         ordering = ["pin_data"]
-        verbose_name = t("Настройка задачи по таймеру")
-        verbose_name_plural = "  " + t("Настройки задач по таймеру")
+        verbose_name = t("Schedule config")
+        verbose_name_plural = "  " + t("Schedule configs")
         db_table = "schedule_data"
 
 
@@ -180,20 +179,20 @@ class BotConfig(models.Model):
     ALLOWED_CLIENTS_ID = "ALLOWED_CLIENTS"
 
     ID_CHOICES = [
-        (TELEGRAM_TOKEN_ID, t("Токен телеграм-бота")),
-        (ALLOWED_CLIENTS_ID, t("Разрешенные id (через запятую)")),
+        (TELEGRAM_TOKEN_ID, t("Telegram bot token")),
+        (ALLOWED_CLIENTS_ID, t("Allowed id (separated by commas)")),
     ]
     id = models.TextField(
         max_length=40,
         choices=ID_CHOICES,
-        verbose_name=t("Идентификатор"),
-        help_text=t("Идентификатор параметра"),
+        verbose_name=t("Name"),
+        help_text=t("Param name"),
         primary_key=True,
     )
     value = models.TextField(
         max_length=400,
-        verbose_name=t("Значение"),
-        help_text=t("Значение параметра"),
+        verbose_name=t("Value"),
+        help_text=t("Param value"),
     )
 
     def __str__(self):
@@ -206,8 +205,8 @@ class BotConfig(models.Model):
 
     class Meta:
         ordering = ["id"]
-        verbose_name = t("Настройка телеграм-бота")
-        verbose_name_plural = t("Настройки телеграм-бота")
+        verbose_name = t("Telegram bot config")
+        verbose_name_plural = t("Telegram bot configs")
         db_table = "bot_config"
 
 

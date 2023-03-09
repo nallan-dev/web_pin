@@ -8,15 +8,15 @@ DEBUG = True
 ALLOWED_HOSTS = ["*"]  # "*" Only for private network!
 WEB_APP_PORT = 8080  # Port of this Django-app
 FAKE_GPIO = True  # On raspberry set to False here to use real GPIO
-USE_BOT = True  # Don't show in interfaces and don't launch in background
+USE_BOT = False  # Don't show in interfaces and don't launch in background
 
 # Telegram bot conf in web admin panel (if change token - app restart required)
 
 # Internationalization
-LANGUAGE_CODE = "ru-ru"  # supports only 'ru-ru' and 'en-us'
+LANGUAGE_CODE = "en-us"  # supports only 'ru-ru' and 'en-us'
 # On Raspberry requires installed locales ru_RU.UTF-8 and/or en_US.UTF-8
 # (you can install them in raspi-config)
-TIME_ZONE = "Europe/Moscow"  # 'UTC' etc.
+TIME_ZONE = "UTC"  # 'UTC' etc.
 # https://en.wikipedia.org/wiki/List_of_tz_database_time_zones
 
 # GPIO BOARD nums available for use. (https://pinout.xyz/)
@@ -58,7 +58,7 @@ BOARD_NUMS = [
 
 
 CRON_OPTIONS = Options()
-if "ru" in LANGUAGE_CODE:
+if LANGUAGE_CODE.lower() == "ru-ru":
     CRON_OPTIONS.locale_code = "ru_RU"
     CRON_OPTIONS.use_24hour_time_format = True
 else:

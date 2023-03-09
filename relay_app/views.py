@@ -16,10 +16,10 @@ class Index(View):
 
     def get(self, request: HttpRequest) -> HttpResponse:
         context = {
-            "title": t("Переключатели"),
-            "no_switches": t("Здесь пока нет переключателей - настройте их"),
-            "updated": t("Обновлено"),
-            "schedule_tasks_title": t("Плановые задачи"),
+            "title": t("Switchers"),
+            "no_switches": t("There are no switches here yet - set them up"),
+            "updated": t("Updated"),
+            "schedule_tasks_title": t("Planned tasks"),
             "pin_data": [
                 pin.as_dict() for pin in PinData.objects.filter(visible=True)
             ],
@@ -57,7 +57,7 @@ class DescribeCron(View):
                 cron_str, settings.CRON_OPTIONS
             )
         except Exception:
-            cron_description = t("Невалидный Крон")
+            cron_description = t("Invalid Cron")
         return JsonResponse(
             data={"cron_description": cron_description},
             safe=False,

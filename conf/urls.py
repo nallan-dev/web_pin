@@ -7,8 +7,8 @@ from django.urls import path
 from conf.translations import t
 from relay_app import views as relay_views
 
-admin.AdminSite.site_title = " " + t("Переключатели")
-admin.AdminSite.site_header = t("Переключатели - администрирование")
+admin.AdminSite.site_title = " " + t("Switchers")
+admin.AdminSite.site_header = t("Switchers - administration")
 admin.AdminSite.index_title = t("")
 
 
