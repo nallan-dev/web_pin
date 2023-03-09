@@ -9,9 +9,9 @@ This is a simple web app that allows you to switch on/off GPIO pins using webpag
 
 Telegram-bot can be easy disabled in settings if you don't need them.
 
-App uses Django's built-in devserver with forced single-thread mode, to avoid possibly conflicts with pin commands.
+App uses CherryPy webserver with forced single-thread mode, to avoid possibly conflicts with pin commands (physical states).
 
-Usage with full mode (app, bot, schedule_cron_worker) ~ 25Mb RAM
+Usage with full mode (app, bot, schedule_cron_worker) ~ 20Mb RAM
 
 ## Installation
 
@@ -33,7 +33,7 @@ WebPin requires to run just python3.11 and some pip-libraries:
 pip install -r py_3_11_requirements.txt
 python run_app.py
 ```
-NOTE: If you set in settings USE_BOT=True then after run_app you see error messages in console like this:
+NOTE: If you set in settings USE_BOT=True - then - after run_app you see error messages in console like this:
 ```
 A request to the Telegram API was unsuccessful. Error code: 401. Description: Unauthorized
 ```
